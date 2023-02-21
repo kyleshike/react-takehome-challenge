@@ -30,8 +30,9 @@ h1 {
   text-transform: uppercase;
 }
 
-.input-wrapper {
-  margin: 3.5rem;
+.form-wrapper {
+  display: flex;
+  flex-grow: 1;
 }
 
 .todos-wrapper {
@@ -45,8 +46,14 @@ h1 {
   border: 1px solid gray;
 }
 
+.todo input {
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+
 input {
-  width: 450px;
+  flex-grow: 1;
   padding: 0.8em;
 }
 
@@ -55,7 +62,7 @@ input:focus {
 }
 
 button {
-  width: 120px;
+  min-width: 120px;
   padding: 0.8em;
   cursor: pointer;
   font-weight: 400;
@@ -71,24 +78,36 @@ button {
   border: 1px solid #828691;
 }
 
-.add-button {
-  margin-top: 0.2em;
+button:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.success-button {
+  color: green;
+  border: none;
+}
+
+.success-button:not(:disabled):hover {
+  color: #fff;
+  background-color: #008a00;
+}
+
+.primary-button {
   color: orange;
 }
 
-.add-button:hover {
+.primary-button:not(:disabled):hover {
   color: #252525;
   background: #44c0b6;
 }
 
-.delete-button {
+.danger-button {
   border: none;
   color: #fe6a6a;
-  margin-left: auto;
-  margin-right: 0;
 }
 
-.delete-button:hover {
+.danger-button:not(:disabled):hover {
   color: #252525;
 
   background: #fe6a6a;
@@ -98,6 +117,7 @@ button {
   padding: 0;
   list-style: none;
   margin-bottom: 0px;
+  margin-top: 1.25rem;
 }
 .todo {
   text-align: left;
@@ -110,8 +130,35 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.todo button {
+  border: none;
+}
+
 .todo-entry {
+  flex-grow: 1;
   padding-left: 5px;
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+}
+
+.todo.completed {
+  border-left-color: green;
+}
+
+.todo.completed .todo-entry {
+  color: green;
+  text-decoration: line-through;
+}
+
+.todo.overdue {
+  border-left-color: #fe6a6a;
+}
+
+.todo.overdue .todo-entry {
+  color: #fe6a6a;
+  font-style: italic;
 }
 
 .empty {

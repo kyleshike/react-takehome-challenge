@@ -1,20 +1,18 @@
-const TodoList = ({ list, remove }) => {
+import TodoItem from "./TodoItem";
+import propTypes from "prop-types";
+
+const TodoList = ({ list, handleRemove, handleUpdate }) => {
   return (
     <>
       {list?.length > 0 ? (
         <div className="todo-list">
           {list.map((entry, index) => (
-            <div key={index} className="todo">
-              <div className="todo-entry">{entry}</div>
-              <button
-                className="delete-button"
-                onClick={() => {
-                  remove(entry);
-                }}
-              >
-                Delete
-              </button>
-            </div>
+            <TodoItem
+              key={`todo_${entry.id}`}
+              todo={entry}
+              handleRemove={handleRemove}
+              handleUpdate={handleUpdate}
+            />
           ))}
         </div>
       ) : (
@@ -24,6 +22,19 @@ const TodoList = ({ list, remove }) => {
       )}
     </>
   );
+};
+
+TodoList.propTypes = {
+  list: propTypes.arrayOf(
+    propTypes.shape({
+      completed: propTypes.bool.isRequired,
+      dueDate: propTypes.number,
+      id: propTypes.string.isRequired,
+      text: propTypes.string.isRequired,
+    })
+  ).isRequired,
+  handleRemove: propTypes.func.isRequired,
+  handleUpdate: propTypes.func.isRequired,
 };
 
 export default TodoList;
